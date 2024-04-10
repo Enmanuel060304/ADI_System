@@ -25,7 +25,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Pages\Compras\" />
+      <Folder Include="Pages\DetVenta\" />
       <Folder Include="Pages\Empleado\" />
+      <Folder Include="Pages\PRODUCTOS\" />
+      <Folder Include="Pages\PROVEEDOR\" />
+      <Folder Include="Pages\VENTAS\" />
     </ItemGroup>
 
 </Project>

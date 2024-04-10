@@ -1,0 +1,46 @@
+@page
+@model ADI.ADB.Pages.PRODUCTOS.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PRODUCTO</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PRODUCTO.NOMBRE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PRODUCTO.NOMBRE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PRODUCTO.PRECIO)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PRODUCTO.PRECIO)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PRODUCTO.STOCK)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PRODUCTO.STOCK)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PRODUCTO.ID_CATEGORIANavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PRODUCTO.ID_CATEGORIANavigation.ID)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="PRODUCTO.ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

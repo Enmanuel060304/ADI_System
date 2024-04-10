@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ADI.ADB.Context;
 using ADI.ADB.Migrations;
 
-namespace ADI.ADB.Pages.Empleado
+namespace ADI.ADB.Pages.PRODUCTOS
 {
     public class CreateModel : PageModel
     {
@@ -21,12 +21,12 @@ namespace ADI.ADB.Pages.Empleado
 
         public IActionResult OnGet()
         {
-        ViewData["ID_ROLE"] = new SelectList(_context.ROLES, "ID", "ID");
+        ViewData["ID_CATEGORIA"] = new SelectList(_context.CATEGORIAs, "ID", "ID");
             return Page();
         }
 
         [BindProperty]
-        public EMPLEADO EMPLEADO { get; set; } = default!;
+        public PRODUCTO PRODUCTO { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +36,7 @@ namespace ADI.ADB.Pages.Empleado
                 return Page();
             }
 
-            _context.EMPLEADOs.Add(EMPLEADO);
+            _context.PRODUCTOs.Add(PRODUCTO);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

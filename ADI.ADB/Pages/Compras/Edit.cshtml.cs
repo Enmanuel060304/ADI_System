@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
 using ADI.ADB.Migrations;
 
-namespace ADI.ADB.Pages.Empleado
+namespace ADI.ADB.Pages.Compras
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace ADI.ADB.Pages.Empleado
         }
 
         [BindProperty]
-        public EMPLEADO EMPLEADO { get; set; } = default!;
+        public COMPRA COMPRA { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,13 +30,14 @@ namespace ADI.ADB.Pages.Empleado
                 return NotFound();
             }
 
-            var empleado =  await _context.EMPLEADOs.FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            var compra =  await _context.COMPRAs.FirstOrDefaultAsync(m => m.ID == id);
+            if (compra == null)
             {
                 return NotFound();
             }
-            EMPLEADO = empleado;
-           ViewData["ID_ROLE"] = new SelectList(_context.ROLES, "ID", "ID");
+            COMPRA = compra;
+           ViewData["ID_PROVEEDOR"] = new SelectList(_context.PROVEEDORs, "ID", "ID");
+           ViewData["Id_EMPLEADO"] = new SelectList(_context.EMPLEADOs, "ID", "ID");
             return Page();
         }
 
@@ -49,7 +50,7 @@ namespace ADI.ADB.Pages.Empleado
                 return Page();
             }
 
-            _context.Attach(EMPLEADO).State = EntityState.Modified;
+            _context.Attach(COMPRA).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +58,7 @@ namespace ADI.ADB.Pages.Empleado
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EMPLEADOExists(EMPLEADO.ID))
+                if (!COMPRAExists(COMPRA.ID))
                 {
                     return NotFound();
                 }
@@ -70,9 +71,9 @@ namespace ADI.ADB.Pages.Empleado
             return RedirectToPage("./Index");
         }
 
-        private bool EMPLEADOExists(int id)
+        private bool COMPRAExists(int id)
         {
-            return _context.EMPLEADOs.Any(e => e.ID == id);
+            return _context.COMPRAs.Any(e => e.ID == id);
         }
     }
 }

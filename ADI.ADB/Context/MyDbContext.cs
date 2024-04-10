@@ -7,6 +7,7 @@ namespace ADI.ADB.Context;
 
 public partial class MyDbContext : DbContext
 {
+
     public MyDbContext()
     {
     }
@@ -34,119 +35,127 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<PROVEEDOR> PROVEEDORs { get; set; }
 
-    public virtual DbSet<ROLE> ROLEs { get; set; }
+    public virtual DbSet<ROLE> ROLES{ get; set; }
 
     public virtual DbSet<VENTum> VENTAs { get; set; }
-    
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ADI_DB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CATEGORIum>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__CATEGORI__3214EC278800C849");
+            entity.HasKey(e => e.ID).HasName("PK__CATEGORI__3214EC271ECA4575");
+
+            entity.Property(e => e.ID).ValueGeneratedNever();
 
             entity.HasOne(d => d.ID_LINEANavigation).WithMany(p => p.CATEGORIa)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__CATEGORIA__ID_LI__2A4B4B5E");
+                .HasConstraintName("FK__CATEGORIA__ID_LI__31EC6D26");
         });
 
         modelBuilder.Entity<CLIENTE>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__CLIENTE__3214EC2773149E9F");
+            entity.HasKey(e => e.ID).HasName("PK__CLIENTE__3214EC27D7D5F17E");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<COMPRA>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__COMPRA__3214EC27659C4F16");
+            entity.HasKey(e => e.ID).HasName("PK__COMPRA__3214EC27FEE2A5FB");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
 
             entity.HasOne(d => d.ID_PROVEEDORNavigation).WithMany(p => p.COMPRAs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__COMPRA__ID_PROVE__403A8C7D");
+                .HasConstraintName("FK__COMPRA__ID_PROVE__3A81B327");
 
             entity.HasOne(d => d.Id_EMPLEADONavigation).WithMany(p => p.COMPRAs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__COMPRA__Id_EMPLE__412EB0B6");
+                .HasConstraintName("FK__COMPRA__Id_EMPLE__3B75D760");
         });
 
         modelBuilder.Entity<DETALLE_COMPRA>(entity =>
         {
             entity.HasOne(d => d.ID_COMPRANavigation).WithMany()
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DETALLE_C__ID_CO__4316F928");
+                .HasConstraintName("FK__DETALLE_C__ID_CO__3D5E1FD2");
 
             entity.HasOne(d => d.ID_PRODUCTONavigation).WithMany()
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DETALLE_C__ID_PR__440B1D61");
+                .HasConstraintName("FK__DETALLE_C__ID_PR__3E52440B");
         });
 
         modelBuilder.Entity<DETALLE_VENTum>(entity =>
         {
             entity.HasOne(d => d.ID_PRODUCTONavigation).WithMany()
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DETALLE_V__ID_PR__3D5E1FD2");
+                .HasConstraintName("FK__DETALLE_V__ID_PR__37A5467C");
 
             entity.HasOne(d => d.ID_VENTANavigation).WithMany()
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DETALLE_V__ID_VE__3C69FB99");
+                .HasConstraintName("FK__DETALLE_V__ID_VE__36B12243");
         });
 
         modelBuilder.Entity<EMPLEADO>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__EMPLEADO__3214EC270035FE5A");
+            entity.HasKey(e => e.ID).HasName("PK__EMPLEADO__3214EC276CC2D433");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
 
             entity.HasOne(d => d.ID_ROLENavigation).WithMany(p => p.EMPLEADOs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__EMPLEADO__ID_ROL__31EC6D26");
+                .HasConstraintName("FK__EMPLEADO__ID_ROL__25869641");
         });
 
         modelBuilder.Entity<LINEA>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__LINEA__3214EC276467D2D9");
+            entity.HasKey(e => e.ID).HasName("PK__LINEA__3214EC272446ED71");
+
+            entity.Property(e => e.ID).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<PRODUCTO>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__PRODUCTO__3214EC275CFF4721");
+            entity.HasKey(e => e.ID).HasName("PK__PRODUCTO__3214EC2796943525");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
 
             entity.HasOne(d => d.ID_CATEGORIANavigation).WithMany(p => p.PRODUCTOs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__PRODUCTO__ID_CAT__2D27B809");
+                .HasConstraintName("FK__PRODUCTO__ID_CAT__34C8D9D1");
         });
 
         modelBuilder.Entity<PROVEEDOR>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__PROVEEDO__3214EC27C1D7298C");
+            entity.HasKey(e => e.ID).HasName("PK__PROVEEDO__3214EC27B89A6A89");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<ROLE>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__ROLE__3214EC2770120B4D");
+            entity.HasKey(e => e.ID).HasName("PK__ROLE__3214EC278FC728EB");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<VENTum>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__VENTA__3214EC27BF92906C");
+            entity.HasKey(e => e.ID).HasName("PK__VENTA__3214EC274AE9EC84");
 
             entity.Property(e => e.ID).ValueGeneratedNever();
 
             entity.HasOne(d => d.ID_CLIENTENavigation).WithMany(p => p.VENTa)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__VENTA__ID_CLIENT__38996AB5");
+                .HasConstraintName("FK__VENTA__ID_CLIENT__2C3393D0");
 
             entity.HasOne(d => d.ID_EMPLEADONavigation).WithMany(p => p.VENTa)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__VENTA__ID_EMPLEA__398D8EEE");
+                .HasConstraintName("FK__VENTA__ID_EMPLEA__2D27B809");
         });
 
         OnModelCreatingPartial(modelBuilder);

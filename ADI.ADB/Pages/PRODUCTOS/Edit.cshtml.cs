@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
 using ADI.ADB.Migrations;
 
-namespace ADI.ADB.Pages.Empleado
+namespace ADI.ADB.Pages.PRODUCTOS
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace ADI.ADB.Pages.Empleado
         }
 
         [BindProperty]
-        public EMPLEADO EMPLEADO { get; set; } = default!;
+        public PRODUCTO PRODUCTO { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,13 +30,13 @@ namespace ADI.ADB.Pages.Empleado
                 return NotFound();
             }
 
-            var empleado =  await _context.EMPLEADOs.FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            var producto =  await _context.PRODUCTOs.FirstOrDefaultAsync(m => m.ID == id);
+            if (producto == null)
             {
                 return NotFound();
             }
-            EMPLEADO = empleado;
-           ViewData["ID_ROLE"] = new SelectList(_context.ROLES, "ID", "ID");
+            PRODUCTO = producto;
+           ViewData["ID_CATEGORIA"] = new SelectList(_context.CATEGORIAs, "ID", "ID");
             return Page();
         }
 
@@ -49,7 +49,7 @@ namespace ADI.ADB.Pages.Empleado
                 return Page();
             }
 
-            _context.Attach(EMPLEADO).State = EntityState.Modified;
+            _context.Attach(PRODUCTO).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ADI.ADB.Pages.Empleado
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EMPLEADOExists(EMPLEADO.ID))
+                if (!PRODUCTOExists(PRODUCTO.ID))
                 {
                     return NotFound();
                 }
@@ -70,9 +70,9 @@ namespace ADI.ADB.Pages.Empleado
             return RedirectToPage("./Index");
         }
 
-        private bool EMPLEADOExists(int id)
+        private bool PRODUCTOExists(int id)
         {
-            return _context.EMPLEADOs.Any(e => e.ID == id);
+            return _context.PRODUCTOs.Any(e => e.ID == id);
         }
     }
 }

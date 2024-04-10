@@ -14,23 +14,23 @@ public partial class CLIENTE
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? NOMBRE { get; set; }
+    public string NOMBRE { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? APELLIDO { get; set; }
+    public string APELLIDO { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? EMAIL { get; set; }
+    public string EMAIL { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? TELEFONO { get; set; }
+    public string TELEFONO { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? DIRECCION { get; set; }
+    public string DIRECCION { get; set; } = null!;
 
     [InverseProperty("ID_CLIENTENavigation")]
     public virtual ICollection<VENTum> VENTa { get; set; } = new List<VENTum>();

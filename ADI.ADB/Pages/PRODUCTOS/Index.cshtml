@@ -1,0 +1,54 @@
+@page
+@model ADI.ADB.Pages.PRODUCTOS.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCTO[0].NOMBRE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCTO[0].PRECIO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCTO[0].STOCK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCTO[0].ID_CATEGORIANavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PRODUCTO) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRECIO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STOCK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_CATEGORIANavigation.ID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

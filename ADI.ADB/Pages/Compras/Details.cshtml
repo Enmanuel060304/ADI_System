@@ -1,0 +1,37 @@
+@page
+@model ADI.ADB.Pages.Compras.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>COMPRA</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.COMPRA.FECHA)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.COMPRA.FECHA)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.COMPRA.ID_PROVEEDORNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.COMPRA.ID_PROVEEDORNavigation.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.COMPRA.Id_EMPLEADONavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.COMPRA.Id_EMPLEADONavigation.ID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.COMPRA.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
