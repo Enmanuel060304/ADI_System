@@ -1,4 +1,4 @@
-using ADI.ADB.Context;
+/*using ADI.ADB.Context;*/
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.Configuration;
 
@@ -10,7 +10,7 @@ builder.Services.AddRazorPages();
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                           ?? throw new InvalidConfigurationException("No se encontró una cadena de conexión en las configuraciones.");
 
-builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
+/*builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));*/
 
 var app = builder.Build();
 
