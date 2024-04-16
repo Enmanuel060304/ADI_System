@@ -1,8 +1,6 @@
-/*using ADI.ADB.Context;*/
-
-using ADI.ADB.Context;
+using CrudWhitRazor.DAL;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols.Configuration;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 //DI
-//DI
-builder.Services.AddDbContext<MyDbContext>
+builder.Services.AddDbContext<AppDbContext>
 (
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                          ?? throw new InvalidConfigurationException("No se encontró una cadena de conexión en las configuraciones.");
-
-/*builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));*/
 
 var app = builder.Build();
 

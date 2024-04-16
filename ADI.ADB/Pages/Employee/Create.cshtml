@@ -1,0 +1,58 @@
+@page
+@model ADI.ADB.Pages.Employee.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employee.name" class="control-label"></label>
+                <input asp-for="Employee.name" class="form-control" />
+                <span asp-validation-for="Employee.name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.LastName" class="control-label"></label>
+                <input asp-for="Employee.LastName" class="form-control" />
+                <span asp-validation-for="Employee.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Phone" class="control-label"></label>
+                <input asp-for="Employee.Phone" class="form-control" />
+                <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.email" class="control-label"></label>
+                <input asp-for="Employee.email" class="form-control" />
+                <span asp-validation-for="Employee.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.password" class="control-label"></label>
+                <input asp-for="Employee.password" class="form-control" />
+                <span asp-validation-for="Employee.password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.id" class="control-label"></label>
+                <input asp-for="Employee.id" class="form-control" />
+                <span asp-validation-for="Employee.id" class="text-danger"></span>
+            </div>
+            
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+

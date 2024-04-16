@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using ADI.ADB.Migrations;
 using Microsoft.EntityFrameworkCore;
 
-namespace ADI.ADB.Context
-{
-    
+namespace ADI.ADB.Context;
+
 public partial class MyDbContext : DbContext
 {
     public MyDbContext()
@@ -24,7 +23,7 @@ public partial class MyDbContext : DbContext
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Line> Lines { get; set; }
-    
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Purchase> Purchases { get; set; }
@@ -162,6 +161,4 @@ public partial class MyDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-}
-
 }
