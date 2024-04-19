@@ -33,6 +33,7 @@
       <Folder Include="Pages\Employee\" />
       <Folder Include="Pages\Line\" />
       <Folder Include="Pages\Product\" />
+      <Folder Include="Pages\Rol\" />
       <Folder Include="Pages\Supplier\" />
     </ItemGroup>
 

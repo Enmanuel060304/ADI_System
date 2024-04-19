@@ -1,0 +1,25 @@
+@page
+@model ADI.ADB.Pages.Rol.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Rol</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rol.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rol.name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Rol.id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

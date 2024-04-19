@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ADI.ADB.Context;
 using ADI.ADB.Migrations;
 
-namespace ADI.ADB.Pages.Category
+namespace ADI.ADB.Pages.Rol
 {
     public class CreateModel : PageModel
     {
@@ -21,22 +21,21 @@ namespace ADI.ADB.Pages.Category
 
         public IActionResult OnGet()
         {
-        ViewData["Id_Line"] = new SelectList(_context.Lines, "id", "id");
             return Page();
         }
 
         [BindProperty]
-        public Migrations.Category Category { get; set; } = default!;
+        public Migrations.Rol Rol { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Category.Id_LineNavigation"))
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Categories.Add(Category);
+            _context.Rols.Add(Rol);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
