@@ -44,7 +44,7 @@ namespace ADI.ADB.Pages.Category
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Category.Id_LineNavigation"))
             {
                 return Page();
             }
