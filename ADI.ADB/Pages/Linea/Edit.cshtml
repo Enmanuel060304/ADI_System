@@ -9,8 +9,11 @@
 
 <h4>Linea</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-header">
+        <h4 class="mb-0">Edit Linea</h4>
+    </div>
+    <div class="card-body">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Linea.id" />
@@ -26,7 +29,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
+<div class="mt-4">
+    <a class="btn btn-secondary" asp-page="./Index">Back to List</a>
 </div>
 
