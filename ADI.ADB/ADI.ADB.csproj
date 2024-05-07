@@ -29,12 +29,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\Category\" />
-      <Folder Include="Pages\Employee\" />
-      <Folder Include="Pages\Line\" />
-      <Folder Include="Pages\Product\" />
+      <Folder Include="Pages\Categoria\" />
+      <Folder Include="Pages\Cliente\" />
+      <Folder Include="Pages\Compras\" />
+      <Folder Include="Pages\DetalleCompra\" />
+      <Folder Include="Pages\DetalleVentas\" />
+      <Folder Include="Pages\Empleados\" />
+      <Folder Include="Pages\Linea\" />
+      <Folder Include="Pages\Producto\" />
+      <Folder Include="Pages\Proveedor\" />
       <Folder Include="Pages\Rol\" />
-      <Folder Include="Pages\Supplier\" />
+      <Folder Include="Pages\Ventas\" />
     </ItemGroup>
 
 </Project>

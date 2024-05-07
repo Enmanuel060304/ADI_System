@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ADI.ADB.Context;
 using ADI.ADB.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADI.ADB.Pages.Rol
 {
@@ -35,8 +36,18 @@ namespace ADI.ADB.Pages.Rol
                 return Page();
             }
 
-            _context.Rols.Add(Rol);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Rols.Add(Rol);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError(string.Empty, "Error al agregar el rol. Ya existe un rol con este nombre.");
+                return Page();
+            }
+
 
             return RedirectToPage("./Index");
         }

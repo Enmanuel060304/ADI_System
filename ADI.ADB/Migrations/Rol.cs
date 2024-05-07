@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ADI.ADB.Migrations;
 
 [Table("Rol")]
-[Index("name", Name = "IX_Rol_name", IsUnique = true)]
-public partial class Rol
+[Index("Nombre", Name = "IX_Rol_Nombre", IsUnique = true)]
+public  class Rol
 {
     [Key]
     public Guid id { get; set; }
 
     [StringLength(50)]
-    public string name { get; set; } = null!;
+    [Required(ErrorMessage = "El Nombre es obligatorio.")]
+    public string Nombre { get; set; } = null!;
 
     [InverseProperty("rol")]
-    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
 }

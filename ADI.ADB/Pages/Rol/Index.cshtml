@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Rol[0].name)
+                @Html.DisplayNameFor(model => model.Rol[0].Nombre)
             </th>
             <th></th>
         </tr>
@@ -23,7 +23,7 @@
 @foreach (var item in Model.Rol) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.name)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |

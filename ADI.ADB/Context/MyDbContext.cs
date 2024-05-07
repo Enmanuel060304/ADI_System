@@ -16,27 +16,27 @@ public partial class MyDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Categorias> Categoria { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Cliente> Clientes { get; set; }
 
-    public virtual DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<Compra> Compras { get; set; }
 
-    public virtual DbSet<Line> Lines { get; set; }
+    public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<DetalleVentas> DetalleVenta { get; set; }
 
-    public virtual DbSet<Purchase> Purchases { get; set; }
+    public virtual DbSet<Empleado> Empleados { get; set; }
 
-    public virtual DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+    public virtual DbSet<Linea> Lineas { get; set; }
+
+    public virtual DbSet<Producto> Productos { get; set; }
+
+    public virtual DbSet<Proveedor> Proveedors { get; set; }
 
     public virtual DbSet<Rol> Rols { get; set; }
 
-    public virtual DbSet<Sale> Sales { get; set; }
-
-    public virtual DbSet<SalesDetail> SalesDetails { get; set; }
-
-    public virtual DbSet<Supplier> Suppliers { get; set; }
+    public virtual DbSet<ventas> venta { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -44,77 +44,103 @@ public partial class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Category>(entity =>
+        modelBuilder.Entity<Categorias>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK_Category_id");
+            entity.HasKey(e => e.id).HasName("PK_Categoria_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
 
-            entity.HasOne(d => d.Id_LineNavigation).WithMany(p => p.Categories)
+            entity.HasOne(d => d.Id_LineaNavigation).WithMany(p => p.Categoria)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Line_id");
+                .HasConstraintName("FK_Linea_id");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<Cliente>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK_Customer_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
         });
 
-        modelBuilder.Entity<Employee>(entity =>
+        modelBuilder.Entity<Compra>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK_Compra_id");
+
+            entity.Property(e => e.id).HasDefaultValueSql("(newid())");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.Compras)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Compra_Empleado_id");
+
+            entity.HasOne(d => d.Proveedor).WithMany(p => p.Compras)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Compra_Proveedor_id");
+        });
+
+        modelBuilder.Entity<DetalleCompra>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK_DetalleCompra_id");
+
+            entity.Property(e => e.id).HasDefaultValueSql("(newid())");
+
+            entity.HasOne(d => d.Compra).WithMany(p => p.DetalleCompras)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DetalleCompra_Compra_id");
+
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCompras)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DetalleCompra_Producto_id");
+        });
+
+        modelBuilder.Entity<DetalleVentas>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK_DetalleVenta_id");
+
+            entity.Property(e => e.id).HasDefaultValueSql("(newid())");
+
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleVenta)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DetalleVenta_Producto_id");
+
+            entity.HasOne(d => d.Venta).WithMany(p => p.DetalleVenta)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DetalleVenta_Venta_id");
+        });
+
+        modelBuilder.Entity<Empleado>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK_Employee_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
 
-            entity.HasOne(d => d.rol).WithMany(p => p.Employees)
+            entity.HasOne(d => d.rol).WithMany(p => p.Empleados)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Employee_Rol_Id");
         });
 
-        modelBuilder.Entity<Line>(entity =>
+        modelBuilder.Entity<Linea>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK_Line_id");
+            entity.HasKey(e => e.id).HasName("PK_Linea_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
         });
 
-        modelBuilder.Entity<Product>(entity =>
+        modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK_Product_id");
+            entity.HasKey(e => e.id).HasName("PK_Producto_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Products)
+            entity.HasOne(d => d.Categoria).WithMany(p => p.Productos)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Category_id");
+                .HasConstraintName("FK_Categoria_id");
         });
 
-        modelBuilder.Entity<Purchase>(entity =>
+        modelBuilder.Entity<Proveedor>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK_Purchase_id");
+            entity.HasKey(e => e.id).HasName("PK_Proveedor_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
-
-            entity.HasOne(d => d.Employee).WithMany(p => p.Purchases)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchase_Employee_id");
-
-            entity.HasOne(d => d.Supplier).WithMany(p => p.Purchases)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchase_Supplier_id");
-        });
-
-        modelBuilder.Entity<PurchaseDetail>(entity =>
-        {
-            entity.HasOne(d => d.Id_ProductNavigation).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PurchaseDetails_Product_id");
-
-            entity.HasOne(d => d.Id_PurchaseNavigation).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PurchaseDetails_Purchase_id");
         });
 
         modelBuilder.Entity<Rol>(entity =>
@@ -124,37 +150,19 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
         });
 
-        modelBuilder.Entity<Sale>(entity =>
+        modelBuilder.Entity<ventas>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK_Sale_id");
+            entity.HasKey(e => e.id).HasName("PK_Venta_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.Sales)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.venta)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sale_Customer_id");
+                .HasConstraintName("FK_Venta_Cliente_id");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Sales)
+            entity.HasOne(d => d.Empleado).WithMany(p => p.venta)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sale_Employee_id");
-        });
-
-        modelBuilder.Entity<SalesDetail>(entity =>
-        {
-            entity.HasKey(e => e.id).HasName("PK_SalesDetail_id");
-
-            entity.Property(e => e.id).HasDefaultValueSql("(newid())");
-
-            entity.HasOne(d => d.id_ProductNavigation).WithMany(p => p.SalesDetails)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SalesDetail_Product_id");
-        });
-
-        modelBuilder.Entity<Supplier>(entity =>
-        {
-            entity.HasKey(e => e.id).HasName("PK_Supplier_id");
-
-            entity.Property(e => e.id).HasDefaultValueSql("(newid())");
+                .HasConstraintName("FK_Venta_Empleado_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

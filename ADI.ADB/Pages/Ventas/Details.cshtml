@@ -1,0 +1,49 @@
+@page
+@model ADI.ADB.Pages.Ventas.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ventas</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ventas.TotalFacturado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ventas.TotalFacturado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ventas.TotalDescuento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ventas.TotalDescuento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ventas.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ventas.Fecha)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ventas.Cliente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ventas.Cliente.id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ventas.Empleado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ventas.Empleado.Apellido)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ventas.id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
