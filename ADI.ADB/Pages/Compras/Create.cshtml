@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Compra.Fecha" class="control-label"></label>
-                <input asp-for="Compra.Fecha" class="form-control" />
+                <input asp-for="Compra.Fecha" type="date" id="fechaInput" class="form-control"/>
                 <span asp-validation-for="Compra.Fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,6 +48,16 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        // Obtén la fecha actual en el formato YYYY-MM-DD
+        var fechaActual = new Date().toISOString().split('T')[0];
+        
+        // Establece la fecha actual como valor predeterminado
+        document.getElementById('fechaInput').value = fechaActual;
+    </script>
+}
 
 <div>
     <a asp-page="Index">Back to List</a>

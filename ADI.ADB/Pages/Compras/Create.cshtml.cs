@@ -21,8 +21,8 @@ namespace ADI.ADB.Pages.Compras
 
         public IActionResult OnGet()
         {
-        ViewData["Empleado_id"] = new SelectList(_context.Empleados, "id", "id");
-        ViewData["Proveedor_id"] = new SelectList(_context.Proveedors, "id", "id");
+            ViewData["Empleado_id"] = new SelectList(_context.Empleados, "id", "Nombre");
+            ViewData["Proveedor_id"] = new SelectList(_context.Proveedors, "id", "Nombre");
             return Page();
         }
 
@@ -32,11 +32,16 @@ namespace ADI.ADB.Pages.Compras
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Empleado_id"))
             {
                 return Page();
             }
-
+            
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Proveedor_id"))
+            {
+                return Page();
+            }
+            
             _context.Compras.Add(Compra);
             await _context.SaveChangesAsync();
 

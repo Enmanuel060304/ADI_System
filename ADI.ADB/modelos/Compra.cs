@@ -26,6 +26,7 @@ public partial class Compra
     public decimal Descuento { get; set; }
 
     public DateTimeOffset Fecha { get; set; }
+    
 
     [InverseProperty("Compra")]
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
