@@ -1,0 +1,59 @@
+@page
+@model ADI.ADB.Pages.DetallesCompra.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DetalleCompra</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Precio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Precio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Cantidad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Cantidad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Descuento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Descuento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Compra)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Compra.id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalleCompra.Producto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetalleCompra.Producto.Nombre)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="DetalleCompra.id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

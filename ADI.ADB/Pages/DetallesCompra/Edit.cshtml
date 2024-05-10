@@ -1,0 +1,58 @@
+@page
+@model ADI.ADB.Pages.DetallesCompra.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>DetalleCompra</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DetalleCompra.id" />
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Compra_id" class="control-label"></label>
+                <select asp-for="DetalleCompra.Compra_id" class="form-control" asp-items="ViewBag.Compra_id"></select>
+                <span asp-validation-for="DetalleCompra.Compra_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Producto_id" class="control-label"></label>
+                <select asp-for="DetalleCompra.Producto_id" class="form-control" asp-items="ViewBag.Producto_id"></select>
+                <span asp-validation-for="DetalleCompra.Producto_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Precio" class="control-label"></label>
+                <input asp-for="DetalleCompra.Precio" class="form-control" />
+                <span asp-validation-for="DetalleCompra.Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Cantidad" class="control-label"></label>
+                <input asp-for="DetalleCompra.Cantidad" class="form-control" />
+                <span asp-validation-for="DetalleCompra.Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Descuento" class="control-label"></label>
+                <input asp-for="DetalleCompra.Descuento" class="form-control" />
+                <span asp-validation-for="DetalleCompra.Descuento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleCompra.Descripcion" class="control-label"></label>
+                <input asp-for="DetalleCompra.Descripcion" class="form-control" />
+                <span asp-validation-for="DetalleCompra.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
