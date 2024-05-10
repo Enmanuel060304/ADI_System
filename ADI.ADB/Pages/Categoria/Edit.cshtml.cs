@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Categoria
 {
@@ -21,7 +21,7 @@ namespace ADI.ADB.Pages.Categoria
         }
 
         [BindProperty]
-        public Categorias Categorias { get; set; } = default!;
+        public modelos.Categoria Categoria { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -30,13 +30,12 @@ namespace ADI.ADB.Pages.Categoria
                 return NotFound();
             }
 
-            var categorias =  await _context.Categoria.FirstOrDefaultAsync(m => m.id == id);
-            if (categorias == null)
+            var categoria =  await _context.Categoria.FirstOrDefaultAsync(m => m.id == id);
+            if (categoria == null)
             {
                 return NotFound();
             }
-            Categorias = categorias;
-           ViewData["Id_Linea"] = new SelectList(_context.Lineas, "id", "id");
+            Categoria = categoria;
             return Page();
         }
 
@@ -49,7 +48,7 @@ namespace ADI.ADB.Pages.Categoria
                 return Page();
             }
 
-            _context.Attach(Categorias).State = EntityState.Modified;
+            _context.Attach(Categoria).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +56,7 @@ namespace ADI.ADB.Pages.Categoria
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoriasExists(Categorias.id))
+                if (!CategoriaExists(Categoria.id))
                 {
                     return NotFound();
                 }
@@ -70,7 +69,7 @@ namespace ADI.ADB.Pages.Categoria
             return RedirectToPage("./Index");
         }
 
-        private bool CategoriasExists(Guid id)
+        private bool CategoriaExists(Guid id)
         {
             return _context.Categoria.Any(e => e.id == id);
         }

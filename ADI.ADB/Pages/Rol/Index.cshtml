@@ -3,39 +3,35 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="card">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Roles</h4>
-    </div>
-    <div class="card-body">
-        <p>
-            <a class="btn btn-primary" asp-page="Create">Crear Nuevo</a>
-        </p>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Rol[0].Nombre)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-    @foreach (var item in Model.Rol) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@item.id">Edit</a>
-                    <a class="btn btn-outline-info" asp-page="./Details" asp-route-id="@item.id">Details</a>
-                    <a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@item.id">Delete</a>
-                </td>
-            </tr>
-    }
-            </tbody>
-        </table>
-    </div>
-</div>
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol[0].Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Rol) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

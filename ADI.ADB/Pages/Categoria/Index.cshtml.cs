@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Categoria
 {
@@ -19,12 +19,11 @@ namespace ADI.ADB.Pages.Categoria
             _context = context;
         }
 
-        public IList<Categorias> Categorias { get;set; } = default!;
+        public IList<modelos.Categoria> Categoria { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Categorias = await _context.Categoria
-                .Include(c => c.Id_LineaNavigation).ToListAsync();
+            Categoria = await _context.Categoria.ToListAsync();
         }
     }
 }

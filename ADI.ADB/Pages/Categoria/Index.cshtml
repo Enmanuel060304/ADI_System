@@ -14,22 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Categorias[0].Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categorias[0].Id_LineaNavigation)
+                @Html.DisplayNameFor(model => model.Categoria[0].Nombre)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Categorias) {
+@foreach (var item in Model.Categoria) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_LineaNavigation.id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |

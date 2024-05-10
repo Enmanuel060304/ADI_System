@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Rol
 {
@@ -21,7 +21,7 @@ namespace ADI.ADB.Pages.Rol
         }
 
         [BindProperty]
-        public Migrations.Rol Rol { get; set; } = default!;
+        public modelos.Rol Rol { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Categoria
 {
@@ -19,7 +19,7 @@ namespace ADI.ADB.Pages.Categoria
             _context = context;
         }
 
-        public Categorias Categorias { get; set; } = default!;
+        public modelos.Categoria Categoria { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,14 +28,14 @@ namespace ADI.ADB.Pages.Categoria
                 return NotFound();
             }
 
-            var categorias = await _context.Categoria.FirstOrDefaultAsync(m => m.id == id);
-            if (categorias == null)
+            var categoria = await _context.Categoria.FirstOrDefaultAsync(m => m.id == id);
+            if (categoria == null)
             {
                 return NotFound();
             }
             else
             {
-                Categorias = categorias;
+                Categoria = categoria;
             }
             return Page();
         }

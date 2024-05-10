@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Producto
 {
@@ -19,12 +19,13 @@ namespace ADI.ADB.Pages.Producto
             _context = context;
         }
 
-        public IList<Migrations.Producto> Producto { get;set; } = default!;
+        public IList<modelos.Producto> Producto { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             Producto = await _context.Productos
-                .Include(p => p.Categoria).ToListAsync();
+                .Include(p => p.Categoria)
+                .Include(p => p.Linea).ToListAsync();
         }
     }
 }

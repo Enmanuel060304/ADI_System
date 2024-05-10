@@ -2,7 +2,7 @@
 @model ADI.ADB.Pages.Producto.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Productos";
 }
 
 <h1>Index</h1>
@@ -28,6 +28,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Producto[0].Categoria)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto[0].Linea)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,7 +50,10 @@
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria.id)
+                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Linea.Nombre)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |

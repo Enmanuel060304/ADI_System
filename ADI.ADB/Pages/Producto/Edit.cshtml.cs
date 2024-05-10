@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Producto
 {
@@ -21,7 +21,7 @@ namespace ADI.ADB.Pages.Producto
         }
 
         [BindProperty]
-        public Migrations.Producto Producto { get; set; } = default!;
+        public modelos.Producto Producto { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -37,6 +37,7 @@ namespace ADI.ADB.Pages.Producto
             }
             Producto = producto;
            ViewData["Categoria_id"] = new SelectList(_context.Categoria, "id", "id");
+           ViewData["Linea_id"] = new SelectList(_context.Lineas, "id", "id");
             return Page();
         }
 

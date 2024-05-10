@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Categoria
 {
@@ -21,12 +21,11 @@ namespace ADI.ADB.Pages.Categoria
 
         public IActionResult OnGet()
         {
-        ViewData["Id_Linea"] = new SelectList(_context.Lineas, "id", "id");
             return Page();
         }
 
         [BindProperty]
-        public Categorias Categorias { get; set; } = default!;
+        public modelos.Categoria Categoria { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +35,7 @@ namespace ADI.ADB.Pages.Categoria
                 return Page();
             }
 
-            _context.Categoria.Add(Categorias);
+            _context.Categoria.Add(Categoria);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

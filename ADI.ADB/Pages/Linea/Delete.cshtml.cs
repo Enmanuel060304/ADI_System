@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Linea
 {
@@ -20,7 +20,7 @@ namespace ADI.ADB.Pages.Linea
         }
 
         [BindProperty]
-        public Migrations.Linea Linea { get; set; } = default!;
+        public modelos.Linea Linea { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {

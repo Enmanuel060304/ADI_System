@@ -30,16 +30,13 @@
 
     <ItemGroup>
       <Folder Include="Pages\Categoria\" />
-      <Folder Include="Pages\Cliente\" />
       <Folder Include="Pages\Compras\" />
-      <Folder Include="Pages\DetalleCompra\" />
-      <Folder Include="Pages\DetalleVentas\" />
+      <Folder Include="Pages\DetallesCompra\" />
       <Folder Include="Pages\Empleados\" />
       <Folder Include="Pages\Linea\" />
       <Folder Include="Pages\Producto\" />
       <Folder Include="Pages\Proveedor\" />
       <Folder Include="Pages\Rol\" />
-      <Folder Include="Pages\Ventas\" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Producto
 {
@@ -20,7 +20,7 @@ namespace ADI.ADB.Pages.Producto
         }
 
         [BindProperty]
-        public Migrations.Producto Producto { get; set; } = default!;
+        public modelos.Producto Producto { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {

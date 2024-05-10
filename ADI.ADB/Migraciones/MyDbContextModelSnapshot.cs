@@ -22,15 +22,12 @@ namespace ADI.ADB.Migraciones
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Categorias", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Categoria", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
-
-                    b.Property<Guid>("Id_Linea")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -40,15 +37,13 @@ namespace ADI.ADB.Migraciones
                     b.HasKey("id")
                         .HasName("PK_Categoria_id");
 
-                    b.HasIndex("Id_Linea");
-
                     b.HasIndex(new[] { "Nombre" }, "IX_Categoria_Nombre")
                         .IsUnique();
 
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Cliente", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Cliente", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +76,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Compra", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Compra", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -116,7 +111,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Compra");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.DetalleCompra", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.DetalleCompra", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +148,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("DetalleCompra");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.DetalleVentas", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.DetalleVenta", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +185,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("DetalleVenta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Empleado", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Empleado", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +231,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Empleado");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Linea", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Linea", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +252,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Linea");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Producto", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Producto", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -265,6 +260,9 @@ namespace ADI.ADB.Migraciones
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<Guid>("Categoria_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Linea_id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nombre")
@@ -286,13 +284,15 @@ namespace ADI.ADB.Migraciones
 
                     b.HasIndex("Categoria_id");
 
+                    b.HasIndex("Linea_id");
+
                     b.HasIndex(new[] { "Nombre" }, "IX_Producto_Nombre")
                         .IsUnique();
 
                     b.ToTable("Producto");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Proveedor", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Proveedor", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -333,7 +333,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Proveedor");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Rol", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Rol", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -354,7 +354,7 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("Rol");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.ventas", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.venta", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -386,26 +386,15 @@ namespace ADI.ADB.Migraciones
                     b.ToTable("venta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Categorias", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Compra", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Linea", "Id_LineaNavigation")
-                        .WithMany("Categoria")
-                        .HasForeignKey("Id_Linea")
-                        .IsRequired()
-                        .HasConstraintName("FK_Linea_id");
-
-                    b.Navigation("Id_LineaNavigation");
-                });
-
-            modelBuilder.Entity("ADI.ADB.Migrations.Compra", b =>
-                {
-                    b.HasOne("ADI.ADB.Migrations.Empleado", "Empleado")
+                    b.HasOne("ADI.ADB.modelos.Empleado", "Empleado")
                         .WithMany("Compras")
                         .HasForeignKey("Empleado_id")
                         .IsRequired()
                         .HasConstraintName("FK_Compra_Empleado_id");
 
-                    b.HasOne("ADI.ADB.Migrations.Proveedor", "Proveedor")
+                    b.HasOne("ADI.ADB.modelos.Proveedor", "Proveedor")
                         .WithMany("Compras")
                         .HasForeignKey("Proveedor_id")
                         .IsRequired()
@@ -416,15 +405,15 @@ namespace ADI.ADB.Migraciones
                     b.Navigation("Proveedor");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.DetalleCompra", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.DetalleCompra", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Compra", "Compra")
+                    b.HasOne("ADI.ADB.modelos.Compra", "Compra")
                         .WithMany("DetalleCompras")
                         .HasForeignKey("Compra_id")
                         .IsRequired()
                         .HasConstraintName("FK_DetalleCompra_Compra_id");
 
-                    b.HasOne("ADI.ADB.Migrations.Producto", "Producto")
+                    b.HasOne("ADI.ADB.modelos.Producto", "Producto")
                         .WithMany("DetalleCompras")
                         .HasForeignKey("Producto_id")
                         .IsRequired()
@@ -435,15 +424,15 @@ namespace ADI.ADB.Migraciones
                     b.Navigation("Producto");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.DetalleVentas", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.DetalleVenta", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Producto", "Producto")
+                    b.HasOne("ADI.ADB.modelos.Producto", "Producto")
                         .WithMany("DetalleVenta")
                         .HasForeignKey("Producto_id")
                         .IsRequired()
                         .HasConstraintName("FK_DetalleVenta_Producto_id");
 
-                    b.HasOne("ADI.ADB.Migrations.ventas", "Venta")
+                    b.HasOne("ADI.ADB.modelos.venta", "Venta")
                         .WithMany("DetalleVenta")
                         .HasForeignKey("Venta_id")
                         .IsRequired()
@@ -454,9 +443,9 @@ namespace ADI.ADB.Migraciones
                     b.Navigation("Venta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Empleado", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Empleado", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Rol", "rol")
+                    b.HasOne("ADI.ADB.modelos.Rol", "rol")
                         .WithMany("Empleados")
                         .HasForeignKey("rol_id")
                         .IsRequired()
@@ -465,26 +454,34 @@ namespace ADI.ADB.Migraciones
                     b.Navigation("rol");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Producto", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Producto", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Categorias", "Categoria")
+                    b.HasOne("ADI.ADB.modelos.Categoria", "Categoria")
                         .WithMany("Productos")
                         .HasForeignKey("Categoria_id")
                         .IsRequired()
                         .HasConstraintName("FK_Categoria_id");
 
+                    b.HasOne("ADI.ADB.modelos.Linea", "Linea")
+                        .WithMany("Productos")
+                        .HasForeignKey("Linea_id")
+                        .IsRequired()
+                        .HasConstraintName("FK_Linea_id");
+
                     b.Navigation("Categoria");
+
+                    b.Navigation("Linea");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.ventas", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.venta", b =>
                 {
-                    b.HasOne("ADI.ADB.Migrations.Cliente", "Cliente")
+                    b.HasOne("ADI.ADB.modelos.Cliente", "Cliente")
                         .WithMany("venta")
                         .HasForeignKey("Cliente_id")
                         .IsRequired()
                         .HasConstraintName("FK_Venta_Cliente_id");
 
-                    b.HasOne("ADI.ADB.Migrations.Empleado", "Empleado")
+                    b.HasOne("ADI.ADB.modelos.Empleado", "Empleado")
                         .WithMany("venta")
                         .HasForeignKey("Empleado_id")
                         .IsRequired()
@@ -495,51 +492,51 @@ namespace ADI.ADB.Migraciones
                     b.Navigation("Empleado");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Categorias", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Categoria", b =>
                 {
                     b.Navigation("Productos");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Cliente", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Cliente", b =>
                 {
                     b.Navigation("venta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Compra", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Compra", b =>
                 {
                     b.Navigation("DetalleCompras");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Empleado", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Empleado", b =>
                 {
                     b.Navigation("Compras");
 
                     b.Navigation("venta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Linea", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Linea", b =>
                 {
-                    b.Navigation("Categoria");
+                    b.Navigation("Productos");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Producto", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Producto", b =>
                 {
                     b.Navigation("DetalleCompras");
 
                     b.Navigation("DetalleVenta");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Proveedor", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Proveedor", b =>
                 {
                     b.Navigation("Compras");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.Rol", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.Rol", b =>
                 {
                     b.Navigation("Empleados");
                 });
 
-            modelBuilder.Entity("ADI.ADB.Migrations.ventas", b =>
+            modelBuilder.Entity("ADI.ADB.modelos.venta", b =>
                 {
                     b.Navigation("DetalleVenta");
                 });

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 using Microsoft.EntityFrameworkCore;
 
 namespace ADI.ADB.Context;
@@ -16,7 +16,7 @@ public partial class MyDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Categorias> Categoria { get; set; }
+    public virtual DbSet<Categoria> Categoria { get; set; }
 
     public virtual DbSet<Cliente> Clientes { get; set; }
 
@@ -24,7 +24,7 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
 
-    public virtual DbSet<DetalleVentas> DetalleVenta { get; set; }
+    public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
 
     public virtual DbSet<Empleado> Empleados { get; set; }
 
@@ -36,7 +36,7 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<Rol> Rols { get; set; }
 
-    public virtual DbSet<ventas> venta { get; set; }
+    public virtual DbSet<venta> venta { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -44,15 +44,11 @@ public partial class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Categorias>(entity =>
+        modelBuilder.Entity<Categoria>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK_Categoria_id");
 
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
-
-            entity.HasOne(d => d.Id_LineaNavigation).WithMany(p => p.Categoria)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Linea_id");
         });
 
         modelBuilder.Entity<Cliente>(entity =>
@@ -92,7 +88,7 @@ public partial class MyDbContext : DbContext
                 .HasConstraintName("FK_DetalleCompra_Producto_id");
         });
 
-        modelBuilder.Entity<DetalleVentas>(entity =>
+        modelBuilder.Entity<DetalleVenta>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK_DetalleVenta_id");
 
@@ -134,6 +130,10 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Categoria).WithMany(p => p.Productos)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Categoria_id");
+
+            entity.HasOne(d => d.Linea).WithMany(p => p.Productos)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Linea_id");
         });
 
         modelBuilder.Entity<Proveedor>(entity =>
@@ -150,7 +150,7 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.id).HasDefaultValueSql("(newid())");
         });
 
-        modelBuilder.Entity<ventas>(entity =>
+        modelBuilder.Entity<venta>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK_Venta_id");
 

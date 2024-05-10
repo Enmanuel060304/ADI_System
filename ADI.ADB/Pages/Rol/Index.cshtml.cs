@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ADI.ADB.Context;
-using ADI.ADB.Migrations;
+using ADI.ADB.modelos;
 
 namespace ADI.ADB.Pages.Rol
 {
@@ -19,7 +19,7 @@ namespace ADI.ADB.Pages.Rol
             _context = context;
         }
 
-        public IList<Migrations.Rol> Rol { get;set; } = default!;
+        public IList<modelos.Rol> Rol { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
