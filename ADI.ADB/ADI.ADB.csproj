@@ -30,7 +30,6 @@
 
     <ItemGroup>
       <Folder Include="Pages\Categoria\" />
-      <Folder Include="Pages\Compras\" />
       <Folder Include="Pages\DetallesCompra\" />
       <Folder Include="Pages\Empleados\" />
       <Folder Include="Pages\Linea\" />
@@ -42,6 +41,7 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Vistas\Factura\Factura.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Vistas\Factura\Factura.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\FacturaCompra\CrearFacturaCompra.cshtml" />
     </ItemGroup>
 
 </Project>

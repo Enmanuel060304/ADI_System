@@ -45,7 +45,7 @@ namespace ADI.ADB.Pages.Compras
             _context.Compras.Add(Compra);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../DetallesCompra/Create");
         }
     }
 }
