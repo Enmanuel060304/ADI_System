@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ADI.ADB.Context;
 using ADI.ADB.modelos;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADI.ADB.Pages.Compras
 {
@@ -23,29 +24,31 @@ namespace ADI.ADB.Pages.Compras
         {
             ViewData["Empleado_id"] = new SelectList(_context.Empleados, "id", "Nombre");
             ViewData["Proveedor_id"] = new SelectList(_context.Proveedors, "id", "Nombre");
+            Productos = _context.Productos.ToList();
             return Page();
         }
 
+        
+        
         [BindProperty]
         public Compra Compra { get; set; } = default!;
+        
+        [BindProperty]
+       public List<modelos.Producto> Productos { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Empleado_id"))
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Proveedor_id")
+                || ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Empleado_id"))
             {
                 return Page();
             }
-            
-            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("Compra.Proveedor_id"))
-            {
-                return Page();
-            }
-            
             _context.Compras.Add(Compra);
+            
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("../DetallesCompra/Create");
+            return RedirectToPage("./Index");
         }
     }
 }

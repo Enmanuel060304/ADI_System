@@ -1,4 +1,6 @@
 @page
+@using ADI.ADB.modelos
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model ADI.ADB.Pages.Compras.CreateModel
 
 
@@ -7,58 +9,180 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>Compra</h4>
-<hr />
-<div>
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group">
-                        <label asp-for="Compra.Proveedor_id" class="control-label"></label>
-                        <select asp-for="Compra.Proveedor_id" class="form-control" asp-items="ViewBag.Proveedor_id"></select>
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="Compra.Empleado_id" class="control-label"></label>
-                        <select asp-for="Compra.Empleado_id" class="form-control " asp-items="ViewBag.Empleado_id"></select>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Compra.Fecha" class="control-label"></label>
-                        <input asp-for="Compra.Fecha" type="date" id="fechaInput" class="form-control"/>
-                        <span asp-validation-for="Compra.Fecha" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
     
-        
-    </div>
-</div>
+    <link rel="stylesheet" href="~/css/mystyle.css" asp-append-version="true"/>
+    
+   
+    
 
-@section Scripts {
-    <script>
-        // Obtén la fecha actual en el formato YYYY-MM-DD
-        var fechaActual = new Date().toISOString().split('T')[0];
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+          }
+          form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+          }
+           input[type="text"]:hover, input[type="number"]:hover{
+                   transform: scale(1.05); /* Aumenta el tamaño del campo de entrada un 5% */
+                   border-bottom: 2px solid #FF8C00; /* Cambia el color del borde inferior */
+               }
+          h2,
+          h3 {
+            margin-bottom: 20px;
+            color: #333;
+          }
+          label {
+            font-weight: bold;
+            color: #555;
+          }
+           #employee, #provider, #date, #product{
+               background: #343a40;
+               color: #fff;
+              border: 3px solid black; /* Color del borde */
+              border-radius: 5px; /* Redondea las esquinas del borde */
+              padding: 5px; /* Espacio interior entre el borde y el contenido */
+          }
+          button {
+            background-color: #FF8C00; /* Color principal del proyecto */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            float: right;
+            transition: all 0.3s ease;
+          }
+          button:hover {
+            background-color: #218838; /* Un tono más oscuro del color principal */
+            transform: scale(1.1);
+          }
+          .text-right {
+            text-align: right;
+          }
+          #total {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #28a745; /* Color principal del proyecto */
+          }
+    </style>
+</head>
+<body>
+<form method="post">
+    <h2>Factura Compra</h2>
+    <div class="form-row">
+        <div class="col">
+            <label>Empleado:</label>
+            <select asp-for="Compra.Empleado_id" id="employee" class="form-control" style="border: black" asp-items="ViewBag.Empleado_id">
+                <!-- Aquí puedes agregar los empleados -->
+                <option disabled selected>Selecciona Un Empleado</option>
+            </select>
+        </div>
+        <div class="col">
+            <label >Proveedor:</label>
+            <select  asp-for="Compra.Proveedor_id" id="provider" class="form-control" asp-items="ViewBag.Proveedor_id">
+                <!-- Aquí puedes agregar los proveedores -->
+                <option disabled selected>Selecciona Un Proveedor</option>
+                
+                <!-- etc. -->
+            </select>
+        </div>
+        <div class="col">
+            <label >Fecha:</label>
+            <input asp-for="Compra.Fecha" type="date" id="date" class="form-control" />
+        </div>
+    </div>
+    <button type="submit"> Realizar Compra</button>
+</form>
+    <hr/>
+    <form method="post">
         
-        // Establece la fecha actual como valor predeterminado
-        document.getElementById('fechaInput').value = fechaActual;
-    </script>
-}
+    <h3>Productos</h3>
+    <div class="form-row">
+        
+        <div class="col">
+            <label>Producto:</label>
+            <select id="product" class="form-control"  >
+                <!-- Aquí puedes agregar los productos -->
+                <option disabled selected> Secciona un Producto</option>
+                @foreach (var producto in Model.Productos)
+                {
+                    <option value="@producto.id"> @producto.Nombre</option>
+                }
+            </select>
+        </div>
+        
+        <div class="col" >
+            
+            <label   for="price">Precio Compra:</label>
+            <input  type="number" id="priceCompra" class="form-control" placeholder="Precio Compra"/>
+        </div>
+        <div class="col">
+                    <label for="description">Precio Venta:</label>
+                    <input type="number" id="PriceVenta" class="form-control" placeholder="Precio Venta"/>
+                </div>
+        <div class="col">
+            <label  for="quantity">Cantidad:</label>
+            <input  type="number" id="quantity" class="form-control" placeholder="Agrega cantidad"/>
+        </div>
+        <div class="col">
+            <label   for="description">Descripción:</label>
+            <input   type="text" id="description" class="form-control" placeholder="Agregar Descripcion"/>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a asp-page="../Producto/Create" class="btn btn-primary" >Crear producto</a>
+            </div>
+            <div class="col">
+                <button type="submit" > agregar pr</button>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <table id="productTable" class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Descripcion</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <!-- Los productos seleccionados se agregarán aquí -->
+        </tbody>
+    </table>
+    <div class="form-row">
+        <div class="text-align" id="total"></div>
+    <button type="submit">Terminar compra</button>
+    </div>
+    </form>
+</body>
+</html> 
+<script>
+    window.onload = function() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('date').value = today;
+    }
+</script>
+
+
+
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
-

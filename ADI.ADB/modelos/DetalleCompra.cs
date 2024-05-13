@@ -22,10 +22,10 @@ public partial class DetalleCompra
     public int Cantidad { get; set; }
 
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Descuento { get; set; }
+    public decimal? Descuento { get; set; }
 
     [StringLength(50)]
-    public string Descripcion { get; set; } = null!;
+    public string? Descripcion { get; set; }
 
     [ForeignKey("Compra_id")]
     [InverseProperty("DetalleCompras")]

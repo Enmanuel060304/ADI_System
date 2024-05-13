@@ -74,7 +74,7 @@ namespace ADI.ADB.Pages.Producto
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Compras/Create");
         }
     }
 }

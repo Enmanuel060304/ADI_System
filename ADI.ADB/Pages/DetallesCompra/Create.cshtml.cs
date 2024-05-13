@@ -32,10 +32,16 @@ namespace ADI.ADB.Pages.DetallesCompra
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("DetalleCompra.Compra_id"))
             {
                 return Page();
             }
+            
+            if (ModelState is { IsValid: false, Count: not 1 } && !ModelState.ContainsKey("DetalleCompra.Producto_id"))
+            {
+                return Page();
+            }
+            
 
             _context.DetalleCompras.Add(DetalleCompra);
             await _context.SaveChangesAsync();

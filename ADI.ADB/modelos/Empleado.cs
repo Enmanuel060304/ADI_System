@@ -29,9 +29,6 @@ public partial class Empleado
     public string Contraseña { get; set; } = null!;
 
     public Guid rol_id { get; set; }
-    
-    [NotMapped]
-    public string RolNombre { get; set; }
 
     [InverseProperty("Empleado")]
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
